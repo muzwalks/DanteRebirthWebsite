@@ -1,0 +1,14 @@
+{% extends "DanteRebirth/header.html" %}
+{% block content %}
+<div style ="margin-left:80px">
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><h5><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</h5></a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+</div>
+{% endblock %}

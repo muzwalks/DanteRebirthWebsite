@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Header page</title>
+  <meta charset="utf-8" />
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'DanteRebirth/css/bootstrap.min.css' %}" type = "text/css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Murray's Online Store Catalogue </title>
+<link href="{% static 'DanteRebirth/band.css' %}" rel="stylesheet" type="text/css">
+<style type="text/css">
+  div.ab {
+    width: 210px;
+    height:45px;
+    background-color:red;
+    position:fixed;    
+    font-weight: bold;
+    font-size: 22px;
+    padding:5px;
+    text-align: center;
+    opacity: 0;
+}​
+
+</style>
+
+</head>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.ab').css("opacity","1");
+    animateDiv();   
+});
+
+function makeNewPosition(){  
+    // Get viewport dimensions (remove the dimension of the div)
+    var h = $(window).height() - 50;
+    var w = $(window).width() - 50;
+    var nh = Math.floor(Math.random() * h);
+    var nw = Math.floor(Math.random() * w);
+    return [nh,nw];       
+}
+
+function animateDiv(){
+    var newq = makeNewPosition();
+    var oldq = $('.ab').offset();
+    var speed = calcSpeed([oldq.top, oldq.left], newq);
+    
+    $('.ab').animate({ top: newq[0], left: newq[1] }, speed, function(){
+      animateDiv();        
+    });   
+};
+
+function calcSpeed(prev, next) {
+    var x = (prev[1] - next[1]);
+    var y = Math.abs(prev[0] - next[0]);
+    var greatest = x > y ? x : y;
+    var speedModifier = 0.1;
+    var speed = Math.ceil(greatest/speedModifier);
+    return speed;
+}
+</script>
+</head>
+
+ 	<body>
+    <div class='ab'>
+   <p>TICKETS ON SALE!</p>
+ </div>
+     <img src="{% static 'DanteRebirth/img/dante.png' %}" class="responsive-img" style ="width:100%"  alt="face"> 
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style = "margin-left:32%; width:40%">
+  
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup" >
+    <div class="navbar-nav">
+      <a class="navbar-brand"><a href='/' style="text-decoration: none">HOME</a>
+      <a class="navbar-brand"><a href='/band/' style="text-decoration: none">BAND</a>
+      <a class="navbar-brand"><a href='/gigs/' style="text-decoration: none">GIGS</a>
+      <a class="navbar-brand"><a href='/fans/' style="text-decoration: none">FANS</a>
+      <a class="navbar-brand"><a href='/merchandise/' style="text-decoration: none">MERCHANDISE</a>
+      <a class="navbar-brand"><a href='/polls/' style="text-decoration: none">POLL</a>
+      <a class="navbar-brand"><a href='/blog/' style="text-decoration: none">BLOG</a>
+    </div>
+  </div>
+</nav>
+      
+      <div class='container-fluid' style="width:80%">
+        <br>
+         {% block content %}
+         {% endblock %} 
+      </div>
+      </div>
+    </div> 
+  </div>
+  <footer>
+    <br>
+    <br>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style = "margin-left:35%; width:40%">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup" >
+    <div class="navbar-nav">
+      <a class="navbar-brand"><a href=# style="text-decoration: none; font-size:12px ">CONTACT</a>
+      <a class="navbar-brand"><a href=# style="text-decoration: none; font-size:12px ">FACEBOOK</a>
+      <a class="navbar-brand"><a href=# style="text-decoration: none; font-size:12px ">INSTAGRAM</a>
+      <a class="navbar-brand"><a href=# style="text-decoration: none; font-size:12px ">TWITTER</a>
+      <a class="navbar-brand"><a href=# style="text-decoration: none; font-size:12px ">LINKEDIN</a>
+    </div>
+  </div>
+</nav>
+  </footer> 
+  
+</body>
+
+
+</html>

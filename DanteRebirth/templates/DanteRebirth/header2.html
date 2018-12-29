@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Header page</title>
+	<meta charset="utf-8" />
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'DanteRebirth/css/bootstrap.min.css' %}" type = "text/css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+	<!-- <link href ="band.css" rel="stylesheet" type="text/css"> -->
+		
+	<style type="text/css">
+  /*div.ab {
+    width: 210px;
+    height:45px;
+    background-color:red;
+    position:fixed;    
+    font-weight: bold;
+    font-size: 22px;
+    padding:5px;
+    text-align: center;
+    opacity: 0;
+}​*/
+</style>
+</head>
+<script type="text/javascript">
+	$(document).ready(function(){
+  $('.ab').css("opacity","1");
+    animateDiv();
+    
+});
+
+function makeNewPosition(){
+    
+    // Get viewport dimensions (remove the dimension of the div)
+    var h = $(window).height() - 50;
+    var w = $(window).width() - 50;
+    
+    var nh = Math.floor(Math.random() * h);
+    var nw = Math.floor(Math.random() * w);
+    
+    return [nh,nw];    
+    
+}
+
+function animateDiv(){
+    var newq = makeNewPosition();
+    var oldq = $('.ab').offset();
+    var speed = calcSpeed([oldq.top, oldq.left], newq);
+    
+    $('.ab').animate({ top: newq[0], left: newq[1] }, speed, function(){
+      animateDiv();        
+    });
+    
+};
+
+function calcSpeed(prev, next) {
+    
+    var x = (prev[1] - next[1]);
+    var y = Math.abs(prev[0] - next[0]);
+    
+    var greatest = x > y ? x : y;
+    
+    var speedModifier = 0.1;
+
+    var speed = Math.ceil(greatest/speedModifier);
+
+    return speed;
+
+}
+  
+
+
+</script>
+
+
+<body class="body" style="background-color:#f6f6f6">
+	<div class='ab'>
+   <p>SALE ON SOUND!</p>
+ </div>
+	<div class="container-fluid" style="min-height:95%; ">
+		<div class="row">
+			<!-- <div class="col-sm">
+				  <br>
+					<img src="{% static 'DanteRebirth/img/the-cure3.jpg' %}" class="responsive-img" style='max-height:300px; max-width: 500px' alt="face">  
+			</div> -->
+			<div class="col-sm">
+				  <br>
+				  <center>
+				  <h1>Dante Rebirth</h1><br>
+				  
+				  </center>
+			  </div>
+			  <div class="col-sm">
+			  	<br>
+				  	<img src="{% static 'DanteRebirth/img/the-cure2.jpg' %}" class="responsive-img" style='max-height:300px; max-width: 500px' alt="face">
+				 
+			  </div>
+			</div>
+		</div><hr>
+
+		<div class="row">
+		  <div class="col-sm-2">
+		 
+		   <!-- Great, til you resize. -->
+			<!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
+			<div class="well bs-sidebar" id="sidebar" style="background-color:#fff">
+			  <ul class="list-group">
+				<li class="list-group-item"><a href='/'>Home</a></li>
+				<li class="list-group-item"><a href='/band/'>Band</a></li>
+				<li class="list-group-item"><a href='/gigs/'>Gigs</a></li>
+				<li class="list-group-item"><a href='/fans/'>Fans</a></li>
+				<li class="list-group-item"><a href='/poll/'>Polls</a></li>
+				<li class="list-group-item"><a href='/blog/'>Blog</a></li>
+			  </ul>
+			</div> <!--well bs-sidebar affix-->
+		  </div> <!--col-sm-2-->
+		  <div class="col-sm-10">
+		  
+			<div class='container-fluid'>
+			<br><br>
+			   {% block content %}
+			   {% endblock %}	
+			</div>
+		  </div>
+		</div> 
+	</div>
+	<footer>
+		<div class="container-fluid" style='margin-left:15px'>
+			<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
+		</div>
+	</footer>	
+	
+</body>
+
+</html>
+</head>
